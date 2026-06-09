@@ -1,0 +1,61 @@
+# spec-diff configuration
+
+[extraction]
+# Margin bands for header/footer detection (fraction of page height)
+top_margin = 0.08
+bottom_margin = 0.08
+
+# How many pages must share text at same position to be considered header/footer
+repetition_threshold = 3
+
+[segmentation]
+# Regex patterns for clause numbering (in priority order)
+clause_patterns = [
+    "^\\d+(\\.\\d+)*\\s+",              # 1, 1.1, 7.4.2
+    "^[A-Z]\\.\\d+(\\.\\d+)*\\s+",      # A.1, B.2.3
+    "^Annex\\s+[A-Z]\\b",               # Annex A
+    "^Table\\s+\\d+",                   # Table 1
+    "^Figure\\s+\\d+",                  # Figure 1
+]
+
+[diff]
+# Word tokenization pattern
+word_pattern = "\\w+|[^\\w\\s]"
+
+# Minimum text similarity to consider segments matched (0-1)
+match_threshold = 0.5
+
+[tables]
+# Enable table extraction and cell-by-cell diff
+enable_table_diff = true
+
+# Minimum table confidence from pdfplumber (0-1)
+table_confidence = 0.7
+
+[figures]
+# Text density threshold below which page is considered figure-heavy
+text_density_threshold = 100  # characters per page
+
+# Image count change to trigger manual review flag
+image_count_change_threshold = 1
+
+[api]
+# Maximum upload file size (bytes)
+max_file_size = 104857600  # 100 MB
+
+# Job retention time (seconds)
+job_retention = 86400  # 24 hours
+
+# CORS origins (localhost only for desktop tool)
+cors_origins = ["http://localhost:5173", "http://localhost:3000"]
+
+[llm]
+# Optional LLM for change categorization (editorial vs technical)
+enable = false
+model = "llama3.2:3b"
+base_url = "http://localhost:11434"
+timeout = 30
+
+[logging]
+level = "INFO"
+format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spec-diff"
+version = "0.1.0"
+description = "Production-grade offline tool for comparing specification PDF revisions"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "spec-diff team"}
+]
+keywords = ["pdf", "diff", "specifications", "standards", "comparison"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Engineers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "pymupdf>=1.23.0",
+    "diff-match-patch>=20230430",
+    "pdfplumber>=0.10.0",
+    "python-docx>=1.1.0",
+    "fastapi>=0.104.0",
+    "uvicorn[standard]>=0.24.0",
+    "python-multipart>=0.0.6",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    "aiofiles>=23.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-asyncio>=0.21.0",
+    "mypy>=1.7.0",
+    "ruff>=0.1.0",
+    "httpx>=0.25.0",
+]
+
+[project.scripts]
+specdiff = "specdiff.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["specdiff*", "api*"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+asyncio_mode = "auto"
