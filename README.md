@@ -27,7 +27,7 @@ Requires Python 3.11+
 
 ```bash
 # Install from source
-git clone https://github.com/Nitheka07/pdf-spec-compare.git
+git clone https://github.com/Sasmxtha/pdf_comp_diff
 cd spec-diff
 pip install -e .
 
